@@ -1,0 +1,10 @@
+body
+{
+    background-color: black;
+    color: white;
+}
+#Description>p{margin-left: 100px;}
+h1{font-family: 'Supermercado One', cursive;}
+h2{font-family: 'Mochiy Pop P One', sans-serif;}
+:visited{color: red;}
+:link{color: white;}

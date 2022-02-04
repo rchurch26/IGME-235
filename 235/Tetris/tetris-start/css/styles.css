@@ -1,0 +1,14 @@
+/* Do everything in this file */
+h2{border-bottom: 2px solid red;}
+figure
+{
+    float: right;
+}
+figure img
+{
+    width: 100%;
+}
+figure figcaption
+{
+    margin-left: 35px;
+}
