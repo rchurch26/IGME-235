@@ -1,0 +1,30 @@
+/* Do everything in this file */
+h2
+{
+    clear: both;
+    border-bottom: 2px solid red;
+}
+figure
+{
+    float: right;
+}
+figure img
+{
+    width: 100%;
+}
+figure figcaption
+{
+    margin-left: 35px;
+}
+.tet
+{
+    float: left;
+    width: 20rem;
+    border-left: 2px solid black;
+}
+footer
+{
+    clear: left;
+    position: fixed;
+    z-index: -2;
+}
