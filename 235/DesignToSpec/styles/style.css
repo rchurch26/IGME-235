@@ -1,0 +1,144 @@
+body
+{
+    background-color: #35363D;
+    display: grid;
+    grid-template-areas: "Header Header Header"
+                         "Oak    Oak    Oak"
+                         "Forest Forest Forest"
+                         "Assets Assets Assets"
+                         "Footer Footer Footer";
+    grid-template-columns: 100% 1fr;
+    grid-template-rows: 100px auto;
+}
+p, h1, h2{color: #FFFFFF;}
+h1, h2{font-family: 'retro_computerregular', sans-serif;}
+p{font-family: 'dogica_pixelregular';}
+@font-face {
+    font-family: 'retro_computerregular';
+    src: url('../DesignToSpecAssets/Fonts/retro_computer_personal_use-webfont.woff2') format('woff2'),
+         url('../DesignToSpecAssets/Fonts/retro_computer_personal_use-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'dogica_pixelregular';
+    src: url('../DesignToSpecAssets/Fonts/dogicapixel-webfont.woff2') format('woff2'),
+         url('../DesignToSpecAssets/Fonts/dogicapixel-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+header
+{
+    grid-area: Header;
+    width: 100%;
+    height: 100px;
+    background-color: #686868;
+    display: flex;
+    justify-content: space-between;
+}
+header img
+{
+    width: 50px;
+    height: 50px;
+    filter: invert(100%) sepia(86%) saturate(2%) hue-rotate(310deg) brightness(107%) contrast(101%);
+}
+.oakTree
+{
+    grid-area: Oak;
+    display: flex;
+    justify-content: space-around;
+}
+.oakTree img
+{
+    border: 5px solid #FFFFFF;
+    background-image: linear-gradient(to bottom right, #E8FDF5, #244D3E);
+}
+.oakTree div
+{
+    background-color: #686868;
+    
+}
+.forest
+{
+    grid-area: Forest;
+    width: 100%;
+}
+.woodAssets
+{
+    grid-area: Assets;
+    display: grid;
+    grid-template-areas: "Plank Stick"
+                         "Chest Stair";
+    grid-template-columns: 50% 1fr;
+    grid-template-rows: 50px auto;
+    
+}
+#planks
+{
+    grid-area: Plank;
+    display: flex;
+}
+.imageSection
+{
+    flex-direction: column;
+    background-color: #324E44;
+    text-align: center;
+    border: 3px solid #FFFFFF;
+}
+.textSection
+{
+    flex-direction: column;
+    background-color: #686868;
+    margin-left: 5px;
+}
+#planks p
+{
+    flex-direction: column;
+}
+#sticks
+{
+    grid-area: Stick;
+    display: flex;
+}
+#chests
+{
+    grid-area: Chest;
+    display: flex;
+}
+#stairs
+{
+    grid-area: Stair;
+    display: flex;
+}
+.info
+{
+    grid-area: Footer;
+    display: flex;
+    justify-content: space-between;
+    border-top: 3px solid #FFFFFF;
+    padding: 150px;
+    background: url(../DesignToSpecAssets/Assets/trees.jpg) no-repeat center;
+    background-size: cover;
+}
+@media screen and (max-width: 550px)
+{
+    body
+    {
+        background-color: #35363D;
+        display: grid;
+        grid-template-areas: "Header"
+                             "Oak"
+                             "Forest"
+                             "Assets"
+                             "Footer";
+    }
+    .oakTree img
+    {
+        border: 5px solid #FFFFFF;
+        background-image: linear-gradient(to bottom right, #E8FDF5, #244D3E);
+        width: 75px;
+        height: 75px;
+    }
+}
