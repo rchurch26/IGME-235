@@ -1,0 +1,60 @@
+body
+{
+    background-color: #78CAD2;
+    color: #373F47;
+}
+.container
+{
+    display: grid;
+    grid-template-areas: "Header Header Header"
+                         "Main   Main   Main"
+                         "Footer Footer Footer";
+}
+#header
+{
+    grid-area: Header;
+    background-color: #A1D2CE;
+    width: 100%;
+}
+#header header
+{
+    display: flex;
+    justify-content: space-between;
+}
+#main
+{
+    grid-area: Main;
+}
+#main #projects
+{
+    display: grid;
+    grid-template-areas: "P1 P2 P3";
+}
+#main #projects #project1
+{
+    grid-area: P1;
+    display: flex;
+}
+#main #projects #project2
+{
+    grid-area: P2;
+    display: flex;
+}
+#main #projects #project3
+{
+    grid-area: P3;
+    display: flex;
+}
+#footer
+{
+    grid-area: Footer;
+    background-color: #A1D2CE;
+    width: 100%;
+}
+div 
+{
+    box-sizing: border-box;
+    border: 1px solid black;
+    padding: 20px;
+    text-align: center;
+}
