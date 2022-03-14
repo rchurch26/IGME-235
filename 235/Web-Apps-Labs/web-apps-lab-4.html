@@ -40,21 +40,18 @@ let links =
 		"RWAG" : "https://www.facebook.com/RWAGclub",
 		"New Media Club" : "http://newmediaclub.cias.rit.edu"
 	}
-let colorList = document.querySelector("#colorsList");
-for(let i = 0; i < colors.length; i++)
+let createList = (listElement, array = ["puppydogs", "butterflies", "lollipops"]) =>
 {
-    //colorList.innerHTML += `<li>${colors[i]}</li>`;
-    let list = document.createElement("li");
-    list.innerHTML = colors[i];
-    colorList.appendChild(list);
+	for(let i of array)
+	{
+		let list = document.createElement("li");
+		list.innerHTML += i;
+		listElement.appendChild(list);
+	}
+	listElement;
 }
-let foodsList = document.querySelector("#foodsList");
-for (let i of foods) 
-{
-	let list = document.createElement("li");
-	list.innerHTML += i;
-	foodsList.appendChild(list);
-}
+createList(document.querySelector("#colorsList"), colors);
+createList(document.querySelector("#foodsList"), foods);
 let linksList = document.querySelector("#linksList");
 for (let i in links) 
 {
