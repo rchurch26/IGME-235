@@ -34,9 +34,9 @@
 
 <div id="colorform">
 	<legend>Choose your favorite color!</legend>
-	<p><input type="radio" name="colorGroup" id="colorGroupRed" value="red" /> Red</p>
-	<p><input type="radio" name="colorGroup" id="colorGroupGreen" value="green" /> Green</p>
-	<p><input type="radio" name="colorGroup" id="colorGroupBlue" value="blue" /> Blue</p>
+	<p><input type="checkbox" name="colorGroup" id="colorGroupRed" value="red" /> Red</p>
+	<p><input type="checkbox" name="colorGroup" id="colorGroupGreen" value="green" /> Green</p>
+	<p><input type="checkbox" name="colorGroup" id="colorGroupBlue" value="blue" /> Blue</p>
 	<p><button id="colorButton" type="button">Submit</button></p>
 	<p id="info"></p>
 </div>
@@ -45,10 +45,14 @@
 /* Write your code here! */
 "use strict";
 let colorGroup = document.querySelectorAll("input[name='colorGroup']");
-let radioClicked = (e) =>
+let info = document.querySelector("#info");
+let checkboxClicked = (e) =>
 {
 	let color = e.target.value;
-	document.querySelector("#info").innerHTML = `You have selected "${color}"!`;
+	if(color == "Red")
+	{
+		info.innerHTML = `You chose ${color}!`;
+	}
 }
 let submitClicked = () => 
 {
@@ -62,12 +66,11 @@ let submitClicked = () =>
 			break;
 		}
 	}
-	legend.style.color = selectedColor;
-	document.querySelector("#info").innerHTML = `Your final answer is "${selectedColor}"!`;
+	info.innerHTML = `Your final answer is "${selectedColor}"!`;
 }
 for (let i of colorGroup)
 {
-	i.addEventListener("change", radioClicked);
+	i.addEventListener("checked", checkboxClicked);
 }
 document.querySelector("#colorButton").onclick = submitClicked;
 </script>
