@@ -43,7 +43,10 @@
 
 <script>
 /* Write your code here! */
-
+"use strict";
+let colorGroup = document.querySelectorAll("input[name='colorGroup']");
+let colorButton = document.querySelector("#colorButton");
+colorButton.addEventListener("click", changeText(document.querySelector("#info")));
 </script>
 </body>
 </html>
