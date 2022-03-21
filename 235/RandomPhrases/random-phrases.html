@@ -5,11 +5,47 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Random Phrases</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Homenaje&display=swap" rel="stylesheet">
     <style>
         body
         {
             background-image: url("media/spider-pain.jpeg");
             background-repeat: no-repeat;
+            background-size: cover;
+            font-family: 'Homenaje', sans-serif;
+            font-size: 24px;
+        }
+        #container header
+        {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: antiquewhite;
+            color: #FF1605;
+        }
+        #quote
+        {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: antiquewhite;
+            color: #FF1605;
+        }
+        button
+        {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        button:hover
+        {
+            color: #FF1605;
+        }
+        button:active
+        {
+            background-color: black;
         }
     </style>
 </head>
@@ -19,9 +55,36 @@
             <h1>Spider-Man Out Of Context</h1>
             <p>Rahmel Church Jr.</p>
         </header>
-        <div id="quotes">
-
+        <div id="quote">
+            <p></p>
         </div>
+        <button id="quoteButton" type="button">Click for Quote</button>
     </div>
+<script>
+    let quotes = 
+    [
+        "Owwww my leg...my...my feelings...",
+        "Ok. How about-you're so fat that when you get on a scale it says: One at a time",
+        "I'm gonna put some dirt in your eye",
+        "You see everything in the future? Huh?! Guess what? Ten seconds from now, I'm gonna start mooning you!",
+        "I don't suppose I can convince you to come up here and fight like a spider"
+    ];
+    let displayQuote = () =>
+    {
+        let num = Math.floor(Math.random() * quotes.length);
+        for(let i = 0; i < quotes.length; i++)
+        {
+            if(num == i)
+            {
+                document.querySelector("#quote").querySelector("p").innerHTML = `${quotes[i]}`;
+            }
+        }
+    }
+    window.onload = function ()
+    {
+        displayQuote();
+    }
+    document.querySelector("#quoteButton").onclick = displayQuote;
+</script>
 </body>
 </html>
