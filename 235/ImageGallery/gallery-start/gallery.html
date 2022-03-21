@@ -109,9 +109,9 @@
 			document.querySelector("#placeholder").src = `images/${dataImage}`;
 		}
 	}
-	for(let i in span)
+	for(let i of span)
 	{
-		span[i].addEventListener("click", dataImageClicked);
+		i.addEventListener("click", dataImageClicked);
 	}
 	</script>
 	   
