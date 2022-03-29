@@ -88,8 +88,14 @@
 	property. We also covered this in web-apps-6.
 	*/
 	"use strict";
-	let span = document.querySelectorAll("span");
-	let dataImageClicked = (e) =>
+	let placeholder = document.querySelector("#placeholder");
+	let span = document.querySelectorAll("span[data-image]");
+	for(let s of span)
+	{
+		s.onclick = (e) => placeholder.src = `images/${e.target.dataset.image}`;
+	}
+	//Old way
+	/*let dataImageClicked = (e) =>
 	{
 		let dataImage = e.target.dataset.image;
 		if(dataImage == "cassie.jpg")
@@ -112,7 +118,7 @@
 	for(let i of span)
 	{
 		i.addEventListener("click", dataImageClicked);
-	}
+	}*/
 	</script>
 	   
 </body>

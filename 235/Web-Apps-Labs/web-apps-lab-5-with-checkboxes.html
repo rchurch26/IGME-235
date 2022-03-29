@@ -44,35 +44,49 @@
 <script>
 /* Write your code here! */
 "use strict";
+let colorButton = document.querySelector("#colorButton");
 let colorGroup = document.querySelectorAll("input[name='colorGroup']");
 let info = document.querySelector("#info");
-let checkboxClicked = (e) =>
+let checkboxChanged = (e) =>
 {
-	let color = e.target.value;
-	if(color == "Red")
+	let s = "";
+	let colorChosen = false;
+	for(let box of colorGroup)
 	{
-		info.innerHTML = `You chose ${color}!`;
-	}
-}
-let submitClicked = () => 
-{
-	let legend = document.querySelector("legend");
-	let selectedColor;
-	for(let i of colorGroup)
-	{
-		if(i.checked)
+		if(box.checked)
 		{
-			selectedColor = i.value;
-			break;
+			if(colorChosen) s += " and ";
+			s += box.value;
+			colorChosen = true;
 		}
 	}
-	info.innerHTML = `Your final answer is "${selectedColor}"!`;
+	info.innerHTML = `You have selected ${s}!`;
 }
-for (let i of colorGroup)
+let submitClicked = (e) => 
+{
+	let s = "";;
+	let colorChosen = false;
+	for(let box of colorGroup)
+	{
+		if(box.checked)
+		{
+			if(colorChosen) s += " and ";
+			s += box.value;
+			colorChosen = true;
+		}
+	}
+	info.innerHTML = `Your final answer(s) is/are "${s}"!`;
+}
+colorButton.onclick = submitClicked;
+for(let box of colorGroup)
+{
+	box.onchange = checkboxChanged;
+}
+/*for (let i of colorGroup)
 {
 	i.addEventListener("checked", checkboxClicked);
 }
-document.querySelector("#colorButton").onclick = submitClicked;
+document.querySelector("#colorButton").onclick = submitClicked;*/
 </script>
 </body>
 </html>
