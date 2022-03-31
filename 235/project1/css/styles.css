@@ -10,20 +10,39 @@ body
                          "Main"
                          "Footer";
 }
-@media screen and (min-width: 480px)
+#main
 {
-    .container
-    {
-        display: grid;
-        grid-template-areas: "Header Header Header"
-                            "Main   Main   Main"
-                            "Footer Footer Footer";
-    }
+    grid-area: Main;
+}
+#main #projects
+{
+    display: grid;
+    grid-template-areas: "P1"
+                         "P2"
+                         "P3";
+}
+@media screen and (min-width: 768px)
+{
     #main #projects
     {
         display: grid;
         grid-template-areas: "P1 P2 P3";
     }
+}
+#main #projects #project1
+{
+    grid-area: P1;
+    display: flex;
+}
+#main #projects #project2
+{
+    grid-area: P2;
+    display: flex;
+}
+#main #projects #project3
+{
+    grid-area: P3;
+    display: flex;
 }
 #header
 {
@@ -41,32 +60,6 @@ body
 {
     width: 25%;
     height: 25%;
-}
-#main
-{
-    grid-area: Main;
-}
-#main #projects
-{
-    display: grid;
-    grid-template-areas: "P1"
-                         "P2"
-                         "P3";
-}
-#main #projects #project1
-{
-    grid-area: P1;
-    display: flex;
-}
-#main #projects #project2
-{
-    grid-area: P2;
-    display: flex;
-}
-#main #projects #project3
-{
-    grid-area: P3;
-    display: flex;
 }
 #footer
 {
