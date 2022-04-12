@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.3.3/pixi.min.js"></script>
+	<style>
+	html, body {
+		margin: 0;
+		padding: 0;
+	}
+	
+	canvas{
+		 position: absolute;
+	}
+	
+	
+	#controls{
+		position: absolute;
+		top: 15px;
+		left: 5px;
+		z-index: 1;
+		width: 120px;
+		background-color: rgba(255,255,255,0.2);
+		font-family: sans-serif;
+		font-size: 12px;
+		color: #fff;
+		color: rgba(255,255,255,0.5);
+	}
+
+	#controls input[type="checkbox"], #fps{
+		margin-left:5px;
+	}
+
+	</style>
+</head>
+<body>
+<div id="controls">
+	<div><input type="checkbox" id="lateral"> Lateral Motion</div>
+	<div><input type="checkbox" id="vertical" checked> Vertical Motion</div>
+	<div id="fps">?? FPS</div>
+</div>
+<script>
+/*
+	Here is an example of a PixiJS particle "experience".
+	If you end up doing something like this for Project 2, it needs to be a lot more 
+	interactive, and "cooler"!
+	
+	Borrowed the "look" from this CodePen, but our code is 100% different:
+	https://codepen.io/erikterwan/pen/VpjVvZ
+	
+	Many inspirations for particle systems on CodePen:
+	https://codepen.io/search/pens?q=particle&order=popularity&depth=everything&show_forks=false
+	Many of these are done <canvas>, so you will need to modify the code obviously
+	
+	Also check out this (in Processing, so you will need to modify for PixiJS):
+	http://natureofcode.com/book/chapter-4-particle-systems/
+	
+	Depending on what you want to do, you may want to switch the code over to vectors,
+	so check out this JS vector library: 
+	http://victorjs.org
+
+	Updated for Pixi 5 - 11/8/2020 - nbb
+*/
+
+  "use strict";
+	let app, container, particles, numberOfParticles = 1000;
+	let particleTexture
+  	let lifetime = 0;
+	let fpsLabel = document.querySelector('#fps');
+	let enableLateralForce = false, enableVerticalForce = true;
+  	  
+	window.onload = ()=>{
+		// load the particle texture synchronously
+		particleTexture = PIXI.Texture.from('images/particle-6x6.png');
+		 
+		// create the renderer
+		app = new PIXI.Application(window.innerWidth, window.innerHeight, { antialias: true });
+
+		// add the canvas to the document
+		document.body.appendChild(app.view);
+	
+		// hook up the checkbox event
+		document.querySelector("#lateral").onchange = (e)=>{enableLateralForce = e.target.checked;}
+		document.querySelector("#vertical").onchange = (e)=>{enableVerticalForce = e.target.checked;}
+		
+		// create the particles and get started
+		createParticles(); 
+	}
+  
+  const createParticles = ()=>{
+    particles = [];
+    container = new PIXI.ParticleContainer();
+    container.maxSize = 30000;
+    app.stage.addChild(container);
+    for (let i = 0; i < numberOfParticles; i++) {
+	    let p = new Particle(
+      	  Math.random() * 2 + 1,
+      	  Math.random() * window.innerWidth,
+          Math.random() * window.innerHeight,
+          Math.random() * 180 - 90,
+          Math.random() * 180 - 90);
+      	particles.push(p);
+     	container.addChild(p);
+    }
+    
+    // Animate the rotation
+    app.ticker.add(update);
+  }
+  
+
+  const update = ()=>{
+  	let dt = 1/app.ticker.FPS;
+  	if (dt > 1/12) dt=1/12;
+  	
+    let sin = Math.sin(lifetime / 60);
+    let cos = Math.cos(lifetime / 60);
+    
+    let xForce = enableLateralForce ? sin * (120 * dt) : 0;
+    let yForce = enableVerticalForce ? cos * (120 * dt) : 0;
+ 
+    for (let p of particles){
+      p.update(dt, xForce, yForce);
+    }
+    
+    lifetime++;
+    
+    // update FPS label every second or so
+    if (lifetime % 60  == 0) fpsLabel.innerHTML = `${Math.round(app.ticker.FPS)} FPS`;
+  }
+  
+  
+  // ES6 Particle Class
+  class Particle extends PIXI.Sprite{
+	constructor(radius, x, y, xSpeed, ySpeed){
+		super(particleTexture);
+		this.x = x;
+		this.y = y;
+		this.anchor.set(.5,.5);
+		this.width = radius*2;
+ 		this.height = radius*2;
+		this.radius = radius;
+		this.xSpeed = xSpeed;
+		this.ySpeed = ySpeed;
+		this.tint = 0x2299FF;
+	}
+	
+	update(dt, xForce, yForce){
+		this.x += this.xSpeed * dt;
+		this.y += this.ySpeed * dt;
+        
+        this.x += xForce;
+        this.y += yForce;
+        
+        if(this.x < this.radius || this.x > (window.innerWidth - this.radius)) {
+			this.xSpeed *= -1;
+        }
+        
+        if(this.y < this.radius || this.y > (window.innerHeight - this.radius)) {
+			this.ySpeed *= -1;
+        }
+	}
+  }
+  
+</script>
+</body>
+</html>

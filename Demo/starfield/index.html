@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Starfield!</title>
+	<style>
+	/* Absolutely position our canvas, which essentially makes it a background of the page */
+	canvas{position:absolute;}
+	h1{
+			position:absolute;
+			z-index:1;
+			top: 0px;
+			left: 0px;
+			width:800px;
+			text-align: center;
+			color:white;
+			font-family: monospace;
+			font-variant: small-caps;
+			font-size:3em;
+	}
+	</style>
+</head>
+<body>
+<h1>Ace Coder's Starfield!</h1>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.3.3/pixi.min.js"></script>
+<script src="js/classes.js"></script>
+<script>
+
+// #1 - Script scoped variables
+const app = new PIXI.Application(800,450);
+document.body.appendChild(app.view); 
+
+const screenWidth = app.view.width;
+const screenHeight = app.view.height;
+const circles = [];
+let mouseX = 0;
+
+// #2 -Functions
+function createStars(){
+	for(let i=0;i<1000;i++){
+		let c = new Star(2,0xFFFFFF * Math.random())
+		c.endX = getRandom(-screenWidth,screenWidth)
+		c.endY = getRandom(-screenHeight,screenHeight)
+		c.z = Math.random() * screenWidth;
+		c.zSpeed = .02 + Math.random()/3;
+		circles.push(c);
+		app.stage.addChild(c);
+	}
+
+}
+
+function move(){
+	for (let c of circles){
+		c.zSpeed = mouseX/window.innerWidth + 0.05;
+		c.move(screenWidth/2,screenHeight/2);
+	}
+}
+
+// #3 - get this app started!
+createStars();
+//document.querySelector("canvas").onmousemove = (e)=>{mouseX = e.clientX - e.target.offsetLeft; };
+window.onmousemove = (e)=>{mouseX = e.clientX};
+app.ticker.add(move);
+
+</script>
+</body>
+</html>

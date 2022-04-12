@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Smooth Keyboard Control</title>
+	
+</head>
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.3.3/pixi.min.js"></script>
+<script src="js/classes.js"></script>
+<script src="js/keys.js"></script>
+<script>
+
+const app = new PIXI.Application(600,400);
+document.body.appendChild(app.view); 
+let avatar;
+
+window.onload = ()=>{
+	avatar = new Avatar(20,0x00FF00,300,200,300);
+	app.stage.addChild(avatar);
+	app.renderer.backgroundColor = 0x333333;
+
+	// Animation Loop
+	app.ticker.add(()=>{
+		// #1 - Calculate "delta time"
+		let dt = 1/app.ticker.FPS;
+		if (dt > 1/12) dt=1/12;
+		
+		// #2 - Check Keys
+		if(keys[keyboard.RIGHT]){
+			avatar.dx = avatar.speed;
+		}else if(keys[keyboard.LEFT]) {
+			avatar.dx = -avatar.speed;
+		}else{
+			avatar.dx = 0;
+		}
+		
+		if(keys[keyboard.DOWN]){
+			avatar.dy = avatar.speed;
+		}else if(keys[keyboard.UP]) {
+			avatar.dy = -avatar.speed;
+		}else{
+			avatar.dy = 0;
+		}
+		
+		// #3 - move avatar
+		avatar.update(dt);
+	
+	});
+	
+} // end window.onload
+
+
+
+</script>
+</body>
+</html>

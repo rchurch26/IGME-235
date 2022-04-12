@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Motion Acceleration Array</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.3.3/pixi.min.js"></script>
+	<script src="js/Vec2.js"></script>
+	<script src="js/mover.js"></script>
+	<script src="js/sketch.js"></script>
+</head>
+<body>
+<script>
+/*
+This is a vector movement example ported from Processing (p5.js) to PixiJS.
+The example is #11 from Chapter 1 of Nature of Code by Daniel Shiffman
+
+http://natureofcode.com/book/chapter-1-vectors/
+
+*/
+const stageWidth = 800;
+const stageHeight = 600;
+
+let app;
+
+window.onload = ()=>{
+	app = new PIXI.Application(stageWidth,stageHeight);
+	document.body.appendChild(app.view); 
+	setup(); // defined in sketch.js
+}
+</script>
+</body>
+</html>
