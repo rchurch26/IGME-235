@@ -226,7 +226,7 @@ function gameLoop(){
     let w2 = ship.width/2;
     let h2 = ship.height/2;
     ship.x = clamp(newX, 0 + w2, sceneWidth - w2);
-    
+    ship.y = clamp(newY, 0 + h2, sceneHeight - h2);
 	
 	// #3 - Move Circles
 	
