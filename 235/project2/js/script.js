@@ -3,20 +3,14 @@ function getData(url)
 {
     let xhr = new XMLHttpRequest();
     xhr.onload = dataLoaded;
-    //xhr.onerror = dataError;
+    xhr.onerror = dataError;
     xhr.open("GET", url);
     xhr.send();
 }
 function quizButtonClicked()
 {
-    console.log("Button clicked");
     const triviaUrl = "https://opentdb.com/api.php?amount=50";
     let url = triviaUrl;
-    /*let difficulty = document.querySelectorAll("option[value]");
-    for (let v of difficulty) 
-    {
-        if(v == "any")    
-    }*/
     console.log(url);
     getData(url);
 }
@@ -25,8 +19,32 @@ function dataLoaded(e)
     let xhr = e.target;
     let obj = JSON.parse(xhr.responseText);
     let questions = obj.results;
-    for(let i = 0; i < questions.length; i++)
+}
+function dataError(e)
+{
+    console.log("An error occurred");
+}
+//difficultyChosen Function
+function difficultyChosen()
+{
+    let difficulties = document.querySelectorAll(".difficulty");
+    for(let d of difficulties)
     {
-        document.querySelector("#questions").innerHTML += `<p>${questions[i].question}</p>`;
-    }  
+        if(d.selected == true)
+        {
+            return d.value;
+        }
+    }
+}
+//categoryChosen Function
+function categoryChosen()
+{
+    let categories = document.querySelectorAll(".category");
+    for(let c of categories)
+    {
+        if(c.selected == true)
+        {
+            return c.value;
+        }
+    }
 }
