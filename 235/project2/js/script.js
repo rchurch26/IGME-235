@@ -1,4 +1,4 @@
-window.onload = (e) => {document.querySelector("button").onclick = quizButtonClicked};
+window.onload = (e) => document.querySelector("button").onclick = quizButtonClicked;
 function getData(url)
 {
     let xhr = new XMLHttpRequest();
@@ -9,6 +9,7 @@ function getData(url)
 }
 function quizButtonClicked()
 {
+    console.log("Button clicked");
     const triviaUrl = "https://opentdb.com/api.php?amount=50";
     let url = triviaUrl;
     /*let difficulty = document.querySelectorAll("option[value]");
@@ -23,10 +24,9 @@ function dataLoaded(e)
 {
     let xhr = e.target;
     let obj = JSON.parse(xhr.responseText);
-    let questions = obj.data;
-    for(let i = 0; i < questions; i++)
+    let questions = obj.results;
+    for(let i = 0; i < questions.length; i++)
     {
-        let question = questions[i];
-        document.querySelector("#questions").innerHTML = `<p> ${question} </p>`;
-    }
+        document.querySelector("#questions").innerHTML += `<p>${questions[i].question}</p>`;
+    }  
 }
