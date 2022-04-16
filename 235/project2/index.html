@@ -15,6 +15,7 @@
             <h2>Any Category, Any Difficulty</h2>
         </div>
         <div id="setup">
+            <p>Number of Questions: <input id="numQuestions" type="number" min="1" max="50" autofocus value="10"></p>
             <p>Difficulty: <select name="difficulty">
                 <option class="difficulty" value="any">Any</option>
                 <option class="difficulty" value="easy">Easy</option>
@@ -22,16 +23,41 @@
                 <option class="difficulty" value="hard">Hard</option>
             </select></p>
             <p>Category: <select name="category">
-                <option class="category" value="Any">Any</option>
+                <option class="category" value="any">Any</option>
                 <option class="category" value="General Knowledge">General Knowledge</option>
+                <option class="category" value="Entertainment: Books">Entertainment: Books</option>
+                <option class="category" value="Entertainment: Film">Entertainment: Film</option>
+                <option class="category" value="Entertainment: Music">Entertainment: Music</option>
+                <option class="category" value="Entertainment: Musicals & Theatres">Entertainment: Musicals & Theatres</option>
+                <option class="category" value="Entertainment: Television">Entertainment: Television</option>
                 <option class="category" value="Entertainment: Video Games">Entertainment: Video Games</option>
+                <option class="category" value="Entertainment: Board Games">Entertainment: Board Games</option>
+                <option class="category" value="Science & Nature">Science & Nature</option>
+                <option class="category" value="Science: Computers">Science: Computers</option>
+                <option class="category" value="Science: Mathematics">Science: Mathematics</option>
+                <option class="category" value="Mythology">Mythology</option>
                 <option class="category" value="Sports">Sports</option>
+                <option class="category" value="Geography">Geography</option>
+                <option class="category" value="History">History</option>
+                <option class="category" value="Politics">Politics</option>
+                <option class="category" value="Art">Art</option>
+                <option class="category" value="Celebrities">Celebrities</option>
+                <option class="category" value="Animals">Animals</option>
+                <option class="category" value="Vehicles">Vehicles</option>
+                <option class="category" value="Entertainment: Comics">Entertainment: Comics</option>
+                <option class="category" value="Science: Gadgets">Science: Gadgets</option>
+                <option class="category" value="Entertainment: Japanese Anime & Manga">Entertainment: Japanese Anime & Manga</option>
+                <option class="category" value="Entertainment: Cartoon & Animations">Entertainment: Cartoon & Animations</option>
             </select></p>
             <h2><button>Begin Quiz</button></h2>
         </div>
         <div id="questions">
             
         </div>
+        <div id="answers">
+            
+        </div>
+        <p id="result"></p>
     </div>
 </body>
 </html>
