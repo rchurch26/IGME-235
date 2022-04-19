@@ -1,5 +1,7 @@
 window.onload = (e) => document.querySelector("button").onclick = quizButtonClicked;
 let answers = [];
+let correct;
+let incorrect;
 function getData(url)
 {
     let xhr = new XMLHttpRequest();
@@ -43,15 +45,16 @@ function dataLoaded(e)
     {
         answers.push(question.incorrect_answers[i]);
     }
-    answers.sort();
     for(let i = 0; i < answers.length; i++)
     {
         document.querySelector("#answers").innerHTML += `<p><input type='radio' name='answers' value='${answers[i]}'>${answers[i]}</p>`;
     }
-    let choice = document.querySelector("#answers[name]");
-    if(choice.value == question.correct_answer)
+    correct = question.correct_answer;
+    incorrect = question.incorrect_answers;
+    removeSettings();
+    for(let a of answers)
     {
-        document.querySelector("#result").innerHTML = `Correct`;
+        a.addEventListener("click", checkAnswer);
     }
 }
 function dataError(e)
@@ -89,11 +92,30 @@ function categoryChosen()
 //checkAnswer Function
 function checkAnswer()
 {
+    let currentAnswer;
     for(let a of answers)
     {
         if(a.selected == true)
         {
-            return a;
+            currentAnswer = a;
         }
     }
+    if(currentAnswer == correct)
+    {
+        document.querySelector("#result").innerHTML = `Correct!`;
+    }
+    for(let i of incorrect)
+    {
+        if(currentAnswer == i)
+        {
+            document.querySelector("#result").innerHTML = `Incorrect!`;
+        }
+    }
+}
+//removeSettings Function
+function removeSettings()
+{
+    document.querySelector("button").style = `display: none`;
+    document.querySelector("#setup").style = `display: none`;
+    document.querySelector("#continue").style = `visibility: visible`;
 }
