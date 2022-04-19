@@ -2,6 +2,7 @@ window.onload = (e) => document.querySelector("button").onclick = quizButtonClic
 let answers = [];
 let correct;
 let incorrect;
+let choices;
 function getData(url)
 {
     let xhr = new XMLHttpRequest();
@@ -49,12 +50,13 @@ function dataLoaded(e)
     {
         document.querySelector("#answers").innerHTML += `<p><input type='radio' name='answers' value='${answers[i]}'>${answers[i]}</p>`;
     }
+    choices = document.querySelectorAll("input[name='answers']");
     correct = question.correct_answer;
     incorrect = question.incorrect_answers;
     removeSettings();
-    for(let a of answers)
+    for(let choice of choices)
     {
-        a.addEventListener("click", checkAnswer);
+        choice.addEventListener("click", checkAnswer);
     }
 }
 function dataError(e)
