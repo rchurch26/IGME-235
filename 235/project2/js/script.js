@@ -3,6 +3,7 @@ let answers = [];
 let correct;
 let incorrect;
 let choices;
+let index = 0;
 function getData(url)
 {
     let xhr = new XMLHttpRequest();
@@ -39,7 +40,7 @@ function dataLoaded(e)
     let xhr = e.target;
     let obj = JSON.parse(xhr.responseText);
     let questions = obj.results;
-    let question = questions[0];
+    let question = questions[index];
     document.querySelector("#questions").innerHTML = `<p>${question.category}<br>${question.question}<br>${question.difficulty}</p>`;
     answers.push(question.correct_answer);
     for(let i = 0; i < question.incorrect_answers.length; i++)
@@ -95,12 +96,13 @@ function categoryChosen()
 function checkAnswer()
 {
     let currentAnswer;
-    for(let a of answers)
+    for(let choice = 0; choice < choices.length; choice++)
     {
-        if(a.selected == true)
+        if(choices[choice].checked == true)
         {
-            currentAnswer = a;
+            currentAnswer = choices[choice].value;
         }
+        choices[choice].disabled = true;
     }
     if(currentAnswer == correct)
     {
@@ -120,4 +122,9 @@ function removeSettings()
     document.querySelector("button").style = `display: none`;
     document.querySelector("#setup").style = `display: none`;
     document.querySelector("#continue").style = `visibility: visible`;
+}
+//nextQuestion Function
+function nextQuestion()
+{
+    
 }
