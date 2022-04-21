@@ -4,6 +4,7 @@ let correct;
 let incorrect;
 let choices;
 let index = 0;
+let answered;
 function getData(url)
 {
     let xhr = new XMLHttpRequest();
@@ -40,24 +41,33 @@ function dataLoaded(e)
     let xhr = e.target;
     let obj = JSON.parse(xhr.responseText);
     let questions = obj.results;
-    let question = questions[index];
-    document.querySelector("#questions").innerHTML = `<p>${question.category}<br>${question.question}<br>${question.difficulty}</p>`;
-    answers.push(question.correct_answer);
-    for(let i = 0; i < question.incorrect_answers.length; i++)
+    while(index < questions.length)
     {
-        answers.push(question.incorrect_answers[i]);
-    }
-    for(let i = 0; i < answers.length; i++)
-    {
-        document.querySelector("#answers").innerHTML += `<p><input type='radio' name='answers' value='${answers[i]}'>${answers[i]}</p>`;
-    }
-    choices = document.querySelectorAll("input[name='answers']");
-    correct = question.correct_answer;
-    incorrect = question.incorrect_answers;
-    removeSettings();
-    for(let choice of choices)
-    {
-        choice.addEventListener("click", checkAnswer);
+        answered = false;
+        let question = questions[index];
+        document.querySelector("#questions").innerHTML = `<p>${question.category}<br>${question.question}<br>${question.difficulty}</p>`;
+        answers.push(question.correct_answer);
+        for(let i = 0; i < question.incorrect_answers.length; i++)
+        {
+            answers.push(question.incorrect_answers[i]);
+        }
+        for(let i = 0; i < answers.length; i++)
+        {
+            document.querySelector("#answers").innerHTML += `<p><input type='radio' name='answers' value='${answers[i]}'>${answers[i]}</p>`;
+        }
+        choices = document.querySelectorAll("input[name='answers']");
+        correct = question.correct_answer;
+        incorrect = question.incorrect_answers;
+        removeSettings();
+        for(let choice of choices)
+        {
+            choice.addEventListener("click", checkAnswer);
+        }
+        if(answered == true)
+        {
+            document.querySelector("#continue").onclick = nextQuestion;
+        }
+        break;
     }
 }
 function dataError(e)
@@ -115,6 +125,7 @@ function checkAnswer()
             document.querySelector("#result").innerHTML = `Incorrect!`;
         }
     }
+    answered = true;
 }
 //removeSettings Function
 function removeSettings()
@@ -126,5 +137,5 @@ function removeSettings()
 //nextQuestion Function
 function nextQuestion()
 {
-    
+    index++;
 }
