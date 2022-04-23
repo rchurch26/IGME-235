@@ -1,4 +1,4 @@
-class Asteroid extends PIXI.Graphics
-{
-    constructor()
-}
+// class Asteroid extends PIXI.Graphics
+// {
+//     constructor()
+// }
