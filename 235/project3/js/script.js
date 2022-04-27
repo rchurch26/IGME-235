@@ -20,11 +20,13 @@ window.onload = () =>
         if(dt > 1/12) dt = 1/12;
         if(keys[controls.UP])
         {
-            ship.dx = 100;
+            if(ship == ship.dy) ship.dy = 150;
         }else
         {
             ship.dx = 0;
+            ship.dy = 0;
         }
         ship.x += ship.dx * dt;
+        ship.y += ship.dy * dt;
     });
 }
