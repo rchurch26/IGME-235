@@ -192,13 +192,37 @@ function startGame()
 //gameLoop
 function gameLoop()
 {
-    if(paused) return;
+    //if(paused) return;
 
-    // #1 - Calculate "delta time"
 	let dt = 1/app.ticker.FPS;
     if(dt > 1/12) dt = 1/12;
     if(keys[controls.UP])
     {
-        ship.move();
+        ship.x = ship.x + 1 * Math.cos(ship.rotation);
+        ship.y = ship.y + 1 * Math.sin(ship.rotation);
+    }
+    if(keys[controls.RIGHT])
+    {
+        ship.rotation += 0.05;
+    }
+    if(keys[controls.LEFT])
+    {
+        ship.rotation -= 0.05;
+    }
+    if(ship.x > sceneWidth)
+    {
+        ship.x = 0;
+    }
+    if(ship.x < 0)
+    {
+        ship.x = sceneWidth;
+    }
+    if(ship.y > sceneHeight)
+    {
+        ship.y = 0;
+    }
+    if(ship.y < 0)
+    {
+        ship.y = sceneHeight;
     }
 }
