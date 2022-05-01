@@ -5,7 +5,10 @@ const sceneWidth = app.view.width;
 const sceneHeight = app.view.height;
 app.loader.add(
     [
-        "images/ship.png"
+        "images/ship.png",
+        "images/large/a10000.png",
+        "images/medium/a10000.png",
+        "images/small/a10000.png"
     ]);
 app.loader.onProgress.add(e => { console.log(`progress=${e.progress}`) });
 app.loader.onComplete.add(setup);
@@ -22,7 +25,8 @@ let asteroids = [];
 let bullets = [];
 let alienShip;
 let score = 0;
-let life = 100;
+let life = 3;
+let time = 5;
 let paused = true;
 
 function setup() {
@@ -149,14 +153,14 @@ textStyle = new PIXI.TextStyle({
 	strokeThickness: 3
 });
 gameOverScoreLabel.style = textStyle;
-gameOverScoreLabel.x = 150;
+gameOverScoreLabel.x = 200;
 gameOverScoreLabel.y = sceneHeight/2;
 gameOverScene.addChild(gameOverScoreLabel);
 
 //make "play again?" button
 let playAgainButton = new PIXI.Text("Play Again?");
 playAgainButton.style = buttonStyle;
-playAgainButton.x = 150;
+playAgainButton.x = 200;
 playAgainButton.y = sceneHeight - 100;
 playAgainButton.interactive = true;
 playAgainButton.buttonMode = true;
@@ -178,7 +182,7 @@ function decreaseLifeBy(value)
 {
     life -= value;
     life = parseInt(life);
-    lifeLabel.text = `Life    ${life}%`;
+    lifeLabel.text = `Life    ${life}`;
 }
 
 //startGame Function
@@ -187,6 +191,7 @@ function startGame()
     startScene.visible = false;
     gameOverScene.visible = false;
     gameScene.visible = true;
+    ship.position.set(sceneWidth / 2, sceneHeight / 2);
 }
 
 //gameLoop
@@ -196,10 +201,11 @@ function gameLoop()
 
 	let dt = 1/app.ticker.FPS;
     if(dt > 1/12) dt = 1/12;
+    //Ship Movement
     if(keys[controls.UP])
     {
-        ship.x = ship.x + 1 * Math.cos(ship.rotation);
-        ship.y = ship.y + 1 * Math.sin(ship.rotation);
+        ship.x = ship.x + 1.5 * Math.cos(ship.rotation);
+        ship.y = ship.y + 1.5 * Math.sin(ship.rotation);
     }
     if(keys[controls.RIGHT])
     {
@@ -207,7 +213,7 @@ function gameLoop()
     }
     if(keys[controls.LEFT])
     {
-        ship.rotation -= 0.05;
+        ship.rotation += -0.05;
     }
     if(ship.x > sceneWidth)
     {
@@ -225,4 +231,64 @@ function gameLoop()
     {
         ship.y = sceneHeight;
     }
+    //Asteroid Movement
+    for(let a of asteroids)
+    {
+        a.move();
+    }
+    time--;
+    if(time == 0)
+    {
+        loadAsteroids();
+        time = 5;
+    }
+}
+
+//createLargeAsteroids Function
+function createLargeAsteroids()
+{
+    let la = new LargeAsteroid();
+    la.x = Math.random() * ((sceneWidth - 25) + sceneWidth) - sceneWidth;
+    la.y = Math.random() * ((sceneHeight - 25) + sceneHeight) + sceneHeight;
+    asteroids.push(la);
+    gameScene.addChild(la);
+}
+//createMediumAsteroids Function
+function createMediumAsteroids()
+{
+    let ma = new MediumAsteroid();
+    ma.x = Math.random() * ((sceneWidth - 25) + sceneWidth) - sceneWidth;
+    ma.y = Math.random() * ((sceneHeight - 25) + sceneHeight) + sceneHeight;
+    asteroids.push(ma);
+    gameScene.addChild(ma);
+}
+//createSmallAsteroids Function
+function createSmallAsteroids()
+{
+    let sa = new SmallAsteroid();
+    sa.x = Math.random() * ((sceneWidth - 25) + sceneWidth) - sceneWidth;
+    sa.y = Math.random() * ((sceneHeight - 25) + sceneHeight) + sceneHeight;
+    asteroids.push(sa);
+    gameScene.addChild(sa);
+}
+//loadAsteroids Function
+function loadAsteroids()
+{
+    if(life > 0)
+    {
+        let num = Math.random();
+        if(num <= 0.3)
+        {
+            createLargeAsteroids();
+        }
+        if(num > 0.3 && num <= 0.6)
+        {
+            createMediumAsteroids();
+        }
+        if(num > 0.6 && num <= 1)
+        {
+            createSmallAsteroids();
+        }
+    }
+    paused = false;
 }
