@@ -20,6 +20,7 @@ class LargeAsteroid extends PIXI.Sprite
         this.x = x;
         this.y = y;
         this.fwd = getRandomUnitVector();
+        this.isAlive = true;
     }
     move(dt = 1/60)
     {
@@ -38,6 +39,7 @@ class MediumAsteroid extends PIXI.Sprite
         this.x = x;
         this.y = y;
         this.fwd = getRandomUnitVector();
+        this.isAlive = true;
     }
     move(dt = 1/60)
     {
@@ -56,10 +58,35 @@ class SmallAsteroid extends PIXI.Sprite
         this.x = x;
         this.y = y;
         this.fwd = getRandomUnitVector();
+        this.isAlive = true;
     }
     move(dt = 1/60)
     {
         this.x += this.fwd.x * 100 * dt;
         this.y += this.fwd.y * 100 * dt;
+    }
+}
+
+class Bullet extends PIXI.Graphics
+{
+    constructor(color = 0xFFFFFF, x = 0, y = 0, ship)
+    {
+        super();
+        this.beginFill(color);
+        this.drawRect(-3, -2, 6, 4);
+        this.endFill();
+        this.ship = ship;
+        this.fwd = this.ship.rotation;
+        this.x = x;
+        this.y = y;
+        this.speed = 200;
+        this.isAlive = true;
+        this.rotation = Math.atan2(Math.sin(this.fwd),Math.cos(this.fwd));
+        Object.seal(this);
+    }
+    move(dt = 1/60)
+    {
+        this.x += Math.cos(this.fwd) * this.speed * dt;
+        this.y += Math.sin(this.fwd) * this.speed * dt;
     }
 }

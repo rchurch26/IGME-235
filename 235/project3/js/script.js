@@ -21,7 +21,9 @@ let gameScene,ship,scoreLabel,lifeLabel,shootSound,hitSound;
 let gameOverScene;
 let gameOverScoreLabel;
 
-let asteroids = [];
+let largeAsteroids = [];
+let mediumAsteroids = [];
+let smallAsteroids = [];
 let bullets = [];
 let alienShip;
 let score = 0;
@@ -52,24 +54,21 @@ function setup() {
     gameScene.addChild(ship);
 
 	// #6 - Load Sounds
-    // shootSound = new Howl(
-    //     {
-    //     src: []
-    //     });
+    shootSound = new Howl(
+        {
+        src: ['audio/laser-blast.mp3']
+        });
 
-    // hitSound = new Howl(
-    //     {
-    //     src: []
-    //     });
-
-	// #7 - Load sprite sheet
-    //explosionTextures = loadSpriteSheet();
+    hitSound = new Howl(
+        {
+        src: ['audio/hit-sound.mp3']
+        });
 		
 	// #8 - Start update loop
     app.ticker.add(gameLoop);
-	
-	// #9 - Start listening for click events on the canvas
-    //app.view.onclick = fireBullet;
+
+    //Shoot
+    app.view.onclick = fireBullet;
 }
 
 //createLabelsAndButtons Function
@@ -164,7 +163,7 @@ playAgainButton.x = 200;
 playAgainButton.y = sceneHeight - 100;
 playAgainButton.interactive = true;
 playAgainButton.buttonMode = true;
-playAgainButton.on("pointerup",startGame); // startGame is a function reference
+playAgainButton.on("pointerup", startGame); // startGame is a function reference
 playAgainButton.on('pointerover',e=>e.target.alpha = 0.7); // concise arrow function with no brackets
 playAgainButton.on('pointerout',e=>e.currentTarget.alpha = 1.0); // ditto
 gameOverScene.addChild(playAgainButton);
@@ -183,15 +182,6 @@ function decreaseLifeBy(value)
     life -= value;
     life = parseInt(life);
     lifeLabel.text = `Life    ${life}`;
-}
-
-//startGame Function
-function startGame()
-{
-    startScene.visible = false;
-    gameOverScene.visible = false;
-    gameScene.visible = true;
-    ship.position.set(sceneWidth / 2, sceneHeight / 2);
 }
 
 //gameLoop
@@ -232,9 +222,17 @@ function gameLoop()
         ship.y = sceneHeight;
     }
     //Asteroid Movement
-    for(let a of asteroids)
+    for(let la of largeAsteroids)
     {
-        a.move();
+        la.move();
+    }
+    for(let ma of mediumAsteroids)
+    {
+        ma.move();
+    }
+    for(let sa of smallAsteroids)
+    {
+        sa.move();
     }
     time--;
     if(time == 0)
@@ -242,6 +240,104 @@ function gameLoop()
         loadAsteroids();
         time = 5;
     }
+
+    //Shooting
+    for(let b of bullets)
+    {
+        b.move(dt);
+    }
+    //Collisions
+	for(let la of largeAsteroids)
+    {
+        for(let b of bullets)
+        {
+            if(rectsIntersect(la, b))
+            {
+                gameScene.removeChild(la);
+                la.isAlive = false;
+                gameScene.removeChild(b);
+                b.isAlive = false;
+                increaseScoreBy(10);
+                createMediumAsteroids(la.x - 5, la.y);
+                createMediumAsteroids(la.x + 5, la.y);
+            }
+            if(b.y > sceneHeight || b.y < 0 || b.x > sceneWidth || b.x < 0) b.isAlive = false;
+        }
+        if(la.isAlive && rectsIntersect(la, ship))
+        {
+            hitSound.play();
+            decreaseLifeBy(1);
+            gameScene.removeChild(ship);
+            resetShip();
+        }
+    }
+    for(let ma of mediumAsteroids)
+    {
+        for(let b of bullets)
+        {
+            if(rectsIntersect(ma, b))
+            {
+                gameScene.removeChild(ma);
+                ma.isAlive = false;
+                gameScene.removeChild(b);
+                b.isAlive = false;
+                increaseScoreBy(20);
+                createSmallAsteroids(ma.x - 5, ma.y);
+                createSmallAsteroids(ma.x + 5, ma.y);
+            }
+            if(b.y > sceneHeight || b.y < 0 || b.x > sceneWidth || b.x < 0) b.isAlive = false;
+        }
+        if(ma.isAlive && rectsIntersect(ma, ship))
+        {
+            hitSound.play();
+            decreaseLifeBy(1);
+            gameScene.removeChild(ship);
+            resetShip();
+        }
+    }
+    for(let sa of smallAsteroids)
+    {
+        for(let b of bullets)
+        {
+            if(rectsIntersect(sa, b))
+            {
+                gameScene.removeChild(sa);
+                sa.isAlive = false;
+                gameScene.removeChild(b);
+                b.isAlive = false;
+                increaseScoreBy(30);
+            }
+            if(b.y > sceneHeight || b.y < 0 || b.x > sceneWidth || b.x < 0) b.isAlive = false;
+        }
+        if(sa.isAlive && rectsIntersect(sa, ship))
+        {
+            hitSound.play();
+            gameScene.removeChild(sa);
+            sa.isAlive = false;
+            decreaseLifeBy(1);
+            gameScene.removeChild(ship);
+            resetShip();
+        }
+    }
+	//remove bullets
+    //bullets = bullets.filter(b => b.isAlive);
+    //remove asteroids
+    largeAsteroids = largeAsteroids.filter(la => la.isAlive);
+    mediumAsteroids = mediumAsteroids.filter(ma => ma.isAlive);
+    smallAsteroids = smallAsteroids.filter(sa => sa.isAlive);
+
+	if(life <= 0)
+    {
+        end();
+        return;
+    }
+}
+
+//resetShip Function
+function resetShip()
+{
+    ship.position.set(sceneWidth / 2, sceneHeight / 2);
+    gameScene.addChild(ship);
 }
 
 //createLargeAsteroids Function
@@ -250,7 +346,7 @@ function createLargeAsteroids()
     let la = new LargeAsteroid();
     la.x = Math.random() * ((sceneWidth - 25) + sceneWidth) - sceneWidth;
     la.y = Math.random() * ((sceneHeight - 25) + sceneHeight) + sceneHeight;
-    asteroids.push(la);
+    largeAsteroids.push(la);
     gameScene.addChild(la);
 }
 //createMediumAsteroids Function
@@ -259,7 +355,7 @@ function createMediumAsteroids()
     let ma = new MediumAsteroid();
     ma.x = Math.random() * ((sceneWidth - 25) + sceneWidth) - sceneWidth;
     ma.y = Math.random() * ((sceneHeight - 25) + sceneHeight) + sceneHeight;
-    asteroids.push(ma);
+    mediumAsteroids.push(ma);
     gameScene.addChild(ma);
 }
 //createSmallAsteroids Function
@@ -268,7 +364,7 @@ function createSmallAsteroids()
     let sa = new SmallAsteroid();
     sa.x = Math.random() * ((sceneWidth - 25) + sceneWidth) - sceneWidth;
     sa.y = Math.random() * ((sceneHeight - 25) + sceneHeight) + sceneHeight;
-    asteroids.push(sa);
+    smallAsteroids.push(sa);
     gameScene.addChild(sa);
 }
 //loadAsteroids Function
@@ -291,4 +387,40 @@ function loadAsteroids()
         }
     }
     paused = false;
+}
+
+//fireBullet Function
+function fireBullet(e)
+{
+    //if(paused) return;
+    let b = new Bullet(0xFFFFFF, ship.x, ship.y, ship);
+    bullets.push(b);
+    gameScene.addChild(b);
+    shootSound.play();
+}
+
+//startGame Function
+function startGame()
+{
+    startScene.visible = false;
+    gameOverScene.visible = false;
+    gameScene.visible = true;
+    ship.position.set(sceneWidth / 2, sceneHeight / 2);
+}
+
+//end Function
+function end()
+{
+    paused = true;
+    largeAsteroids.forEach(la => gameScene.removeChild(la));
+    largeAsteroids = [];
+    mediumAsteroids.forEach(ma => gameScene.removeChild(ma));
+    mediumAsteroids = [];
+    smallAsteroids.forEach(sa => gameScene.removeChild(sa));
+    smallAsteroids = [];
+    bullets.forEach(b => gameScene.removeChild(b));
+    bullets = [];
+    gameOverScoreLabel.text = `Your final score: ${score}`;
+    gameOverScene.visible = true;
+    gameScene.visible = false;
 }

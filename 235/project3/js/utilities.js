@@ -1,4 +1,4 @@
-	// http://paulbourke.net/miscellaneous/interpolation/
+// http://paulbourke.net/miscellaneous/interpolation/
 // bounding box collision detection - it compares PIXI.Rectangles
 function rectsIntersect(a,b){
     var ab = a.getBounds();
