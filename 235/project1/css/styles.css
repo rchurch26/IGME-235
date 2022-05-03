@@ -1,7 +1,8 @@
 body
 {
-    background-color: #78CAD2;
-    color: #373F47;
+    background-color: #DAE3E5;
+    color: #04080F;
+    font-family: 'Lora', serif;
 }
 .container
 {
@@ -20,6 +21,7 @@ body
     grid-template-areas: "P1"
                          "P2"
                          "P3";
+    font-size: 14px;
 }
 @media screen and (min-width: 768px)
 {
@@ -47,8 +49,8 @@ body
 #header
 {
     grid-area: Header;
-    background-color: #A1D2CE;
     width: 100%;
+    font-size: 32px;
 }
 #header header
 {
@@ -64,23 +66,12 @@ body
 #footer
 {
     grid-area: Footer;
-    background-color: #A1D2CE;
     width: 100%;
 }
 #footer #footItems
 {
     display: flex;
     justify-content: space-around;
-}
-#footer #resume
-{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-#footer #resume img
-{
-    width: 50%;
 }
 div 
 {
