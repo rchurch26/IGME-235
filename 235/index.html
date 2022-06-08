@@ -1,53 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>235 Home Page</title>
-        <link rel="stylesheet" type="text/css" href="css/style.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Supermercado+One&display=swap" rel="stylesheet">
-    </head>
-    
-    <body>
-        <header>
-            <h1>Rahmel Church Jr.'s 235 Page</h1>
-            <img alt="Photo of Me" src="images/Personal-Photo.jpg">
-        </header>
-        <main>
-            <div class="bio">
-                <h2>About Me</h2>
-                <p>
-                    Hello, my name is Rahmel Church Jr., and I am a second year student at the Rochester Institute of Technology(RIT).
-                    I am currently majoring in Game Design/Development and with this class I hope to improve my JavaScript skills.
-                    I am also looking forward to creating a well designed and presentable portfolio. I enjoy playing video games like First-Person Shooters, Adventure, Action, and Sports games.
-                    I also enjoy playing the sports of Football, Boxing, and Basketball and I enjoy watching anime(Favorite: Hajime no Ippo).
-                    After I graduate, I would like to go striaght into the game industry and work as a game developer for a game development company.
-                    I really want to work on and create games that people can enjoy.
-                </p>
-            </div>
-            
-            <div class="projects">
-                <h2>My Projects</h2>
-                <a href="" target="_blank" id="firstProject">First Project PlaceHolder</a>
-                <img alt="Image of First Project" src="" id="firstProjectImage">
-                <div class="firstProjectBio">
-                    <p>Bio of First Project</p>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/styles.css">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Project1</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@1,500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div id="header">
+            <header>
+                <h1>Rahmel Church Jr.</h1>
+                <h2>Looking For A CO-OP or Internship Position As A Game Developer</h2>
+                <img src="images/me.jpg" alt="Picture of Me">
+            </header>
+        </div>
+        <div id="main">
+            <main>
+                <div id="about">
+                    <p>
+                        Hello, My name is Rahmel Church Jr. and I am a second year student at the Rochester Institute of Technology(RIT).
+                        I am currently majoring in Game Design/Development and I aspire to become a game developer in the future.
+                        I want to create games that people can enjoy, games that help people get into a better mood, and make them feel happy.
+                        Below are some projects that I have worked on. Hopefully, you enjoy them. Thank you for visiting.
+                    </p>
                 </div>
-                <a href="" target="_blank" id="secondProject">Second Project PlaceHolder</a>
-                <img alt="Image of Second Project" src="" id="secondProjectImage">
-                <div class="secondProjectBio">
-                    <p>Bio of Second Project</p>
+                <div id="projects">
+                    <div id="project1">
+                        <div>
+                            <h2><a href="https://github.com/SimonDumas27/gdaps2_2215_team_D/releases/tag/S4">Friendly Fire</a></h2>
+                            <p>Friendly Fire is a puzzle, action game where you are a knight that tried to fight someone stronger than you and you lost, losing your sword in the process. Now you must escape a dungeon without attacking but by making your enemies attack each other. This game was created in C# using the monogame engine. For this project, I worked on enemy implementation and health increase after every level. Enemy implementation had many problems with loading them from the level file and putting them in the right place. For this issue, I worked with the groupmate that implemented the level file reader and we tackled enemy loading and implementation together. There are many levels in this game with many more features to come. I hope you enjoy.</p>
+                        </div>
+                        <img src="images/friendlyFire.png" alt="Image of Friendly Fire">
+                    </div>
+                    <div id="project2">
+                        <div>
+                            <h2><a href="https://people.rit.edu/rac3090/235/project3/game.html">Asteroids</a></h2>
+                            <p>Asteroids is a remake of the classic game of the same name. You control a ship in an asteroid field and you try to survive for as long as possible and try to get a high score. This game was made in JavaScript using the Pixi.js engine. The game doesn't have a bunch of irregular shapes for asteroids and a trianle for the ship but actual sprites instead. In the future, I'm thinking of adding different backgrounds instead of just the standard black and white background. A challenge I tackled was the movement of the ship since it is difficult to have a ship move based on where it is looking. With the help of a friend, I was able to figure out what I needed to add to the creation of the ship and move the ship correctly. I hope you enjoy.</p>
+                        </div>
+                        <img src="images/asteroids.png" alt="Image of Asteroids">
+                    </div>
+                    <div id="project3">
+                        <div>
+                            <h2><a href="https://people.rit.edu/rac3090/235/project2/">Trivia</a></h2>
+                            <p>Trivia is a basic game of trivia that offers many different genres, difficulties, and up to fifty questions. A user can choose these different settings and challenge their knowledge in all areas or certain areas choosing between the difficulties of easy, medium, and hard. Users can also answer questions at any difficulty. This project was made in JavaScript and the toughest part was getting the data to load correctly. Carefully reading the API I used helped fix this issue and I was able to display questions and answers correctly. I plan on adding more CSS styles to the site so it can be much more presentable and fun to try out. I hope you enjoy.</p>
+                        </div>
+                        <img src="images/trivia.png" alt="Image of Trivia">
+                    </div>
                 </div>
-                <a href="" target="_blank" id="thirdProject">Third Project PlaceHolder</a>
-                <img alt="Image of Third Project" src="" id="thirdProjectImage">
-                <div class="thirdProjectBio">
-                    <p>Bio of Third Project</p>
+            </main>
+        </div>
+        <div id="footer">
+            <footer>
+                <h2>Contact Info & Resume</h2>
+                <div id="footItems">
+                    <p><a target="_blank" href="documents/Rahmel-Church-Jr-Resume.pdf">Resume</a></p>
+                    <p>Email: rahmelchurch@gmail.com</p>
+                    <p><a target = "_blank" href="https://www.linkedin.com/in/rahchurch26">LinkedIn</a></p>
                 </div>
-            </div>
-        </main>
-        <footer>
-            <p><a href="https://github.com/rchurch26/IGME-235" target="_blank">My Github Repo</a></p>
-        </footer>
-    </body>
+            </footer>
+        </div>
+    </div>
+</body>
 </html>
